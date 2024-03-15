@@ -16,9 +16,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date = date("Y-m-d");
 
     // Your SQL query to insert data
-    $query = "INSERT INTO fillup (name, section, department, course, professor,date,uid) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO fillup (name, section, department, course, professor,date,uid,status) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
     $stmt = $conn->prepare($query);
-    $stmt->execute([$name, $section, $department, $course, $professor, $date, $uid]);
+    $stmt->execute([$name, $section, $department, $course, $professor, $date, $uid,"pending"]);
 
     echo "Appointment created successfully.";
 

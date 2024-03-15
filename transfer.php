@@ -10,8 +10,8 @@ $row = $stmtSelect->fetch(PDO::FETCH_ASSOC);
 
 if ($row) {
     // Insert the data into the proceed table
-    $sqlInsert = "INSERT INTO proceed (name, section, department, course, professor, date, uid) 
-                  VALUES (:name, :section, :department, :course, :professor, :date, :uid)";
+    $sqlInsert = "INSERT INTO proceed (name, section, department, course, professor, date, uid,status) 
+                  VALUES (:name, :section, :department, :course, :professor, :date, :uid, :status)";
     $stmtInsert = $conn->prepare($sqlInsert);
     $stmtInsert->bindParam(':name', $row['name'], PDO::PARAM_STR);
     $stmtInsert->bindParam(':section', $row['section'], PDO::PARAM_STR);
@@ -20,6 +20,8 @@ if ($row) {
     $stmtInsert->bindParam(':professor', $row['professor'], PDO::PARAM_STR);
     $stmtInsert->bindParam(':date', $row['date'], PDO::PARAM_STR);
     $stmtInsert->bindParam(':uid', $row['uid'], PDO::PARAM_STR);
+    $status = "proceed"; // Set the status to "proceed"
+    $stmtInsert->bindParam(':status', $status, PDO::PARAM_STR);
 
     if ($stmtInsert->execute()) {
         // Delete the row from the fillup table
