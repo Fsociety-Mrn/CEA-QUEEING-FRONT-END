@@ -76,9 +76,19 @@
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Required">
-						<input class="input100" type="text" name="professor">
+						<!-- <input class="input100" type="text" name="professor">
 						<span class="focus-input100"></span>
-						<span class="label-input100">Professor</span>
+						<span class="label-input100">Professor</span> -->
+						<select class="input100" name="professor" id="professor">
+      					  <option>Choose Professor</option>
+      					  <option value="BSCompEng">Rizal Laqui</option>
+     					  <option value="BSElectrical">Ronel Paglomutan</option>
+      					  <option value="BSElectronics">Ezekiel Nequit</option>
+       					
+    					</select>
+
+						<span class="focus-input100"></span>
+   					 	<span class="label-input100">Professor</span>
 					</div>
 
 
@@ -133,6 +143,7 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+	<script src="./EnvSecret.js"></script>
 	<script>
         $(document).ready(function(){
             $('#myForm').submit(function(event){
@@ -145,6 +156,63 @@
                 }, 3000);
             });
         });
+    </script>
+	<script>
+
+
+		// Function to render professor options
+		function renderProfessorOptions(professorNames) {
+    const selectElement = document.getElementById('professor');
+
+    // Clear existing options
+    selectElement.innerHTML = '';
+
+    // Create default option
+    const defaultOption = document.createElement('option');
+    defaultOption.textContent = 'Choose Professor';
+    selectElement.appendChild(defaultOption);
+
+    // Create options for each professor name
+    professorNames.forEach(name => {
+        const option = document.createElement('option');
+        option.value = name;
+        option.textContent = name;
+        selectElement.appendChild(option);
+    });
+}
+
+        // Get access to the camera and display the stream in the video element
+		window.onload = async function getPornToday() {
+			
+			try {
+        		const response = await fetch(mySecrets().api + "/get_professor_today", {
+            	method: 'GET',
+            	headers: {
+                	'Content-Type': 'application/json',
+                	'Authorization': mySecrets().secret
+            	},
+        	});
+
+        	// Check if the response is successful (status code in the range 200-299)
+        	if (response.ok) {
+            	// Parse the response body as JSON
+           	 	const data = await response.json();
+
+            	   // Render the professor options
+				   renderProfessorOptions(data) ;
+
+        	} else {
+           	 // If response is not successful, throw an error
+            	throw new Error(`Error: ${response.status} ${response.statusText}`);
+        	}
+    		} catch (error) {
+        		// Handle any errors that occur during the fetch operation
+        		console.error('There was a problem with the fetch operation:', error);
+        		throw error; // Rethrow the error for further handling if needed
+    		}
+		}
+
+
     </script>
 </body>
 </html>

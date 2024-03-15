@@ -124,7 +124,7 @@
         };
         xhr.open('GET', 'transfer.php', true);
         xhr.send();
-    }, 5000); // 2 minutes in milliseconds
+    }, 500000); // 2 minutes in milliseconds
 
     setTimeout(function() {
         location.reload();
